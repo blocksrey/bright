@@ -1,6 +1,6 @@
-## Bright - Rust Backlight Controller for Linux
+# Bright - Rust Backlight Controller for Linux
 
-# Usage
+## Usage
 Bright is a Rust program designed to help you control the backlight brightness on your Linux system.
 Please ensure that your backlight is exposed in userspace at the /sys/backlight/ directory.
 
