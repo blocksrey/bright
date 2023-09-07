@@ -72,6 +72,8 @@ fn main() {
 	println!("{} -> {}", scale_pos, scale_tar);
 	println!("Round target {}", step_tar);
 
+	let speed = 0.1;
+
 	let dt = 0.01; // Pretty much equivalent to dt because there's like zero overhead in the loop
 	let loop_duration = std::time::Duration::from_millis((1000.0*dt) as u64);
 
@@ -81,7 +83,7 @@ fn main() {
 
 	loop {
 		//scale_pos += dt*(scale_tar - scale_pos);
-		scale_pos = constant_speed_interpolation(scale_pos, scale_tar, 0.1, dt);
+		scale_pos = constant_speed_interpolation(scale_pos, scale_tar, speed, dt);
 		println!("{}", scale_pos);
 
 		let step_pos = (max_brightness*scale_pos).round();
