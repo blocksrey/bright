@@ -51,7 +51,6 @@ fn main() {
 	std::fs::read_to_string(&brightness_path_string) // I don't really get why I need the address here
 	.unwrap()
 	.trim_end()
-	.to_string()
 	.parse::<f32>()
 	.unwrap();
 
@@ -59,7 +58,6 @@ fn main() {
 	std::fs::read_to_string(max_brightness_path_string) // Do I need to use the address here?
 	.unwrap()
 	.trim_end()
-	.to_string()
 	.parse::<f32>()
 	.unwrap();
 
