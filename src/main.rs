@@ -2,16 +2,9 @@ fn constant_speed_interpolation(p: f32, t: f32, s: f32, dt: f32) -> f32 {
 	let o = t - p;
 	let z = dt*s;
 
-	let mut u = 0.0;
-	if o > 0.0 {
-		u = 1.0;
-	}
-	else {
-		u = -1.0;
-	}
 
 	if z*z < o*o {
-		return p + z*u;
+		return p + z.copysign(o);
 	}
 
 	return t;
