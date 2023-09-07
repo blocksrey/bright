@@ -1,17 +1,9 @@
-fn constant_speed_interpolation(p: f32, t: f32, s: f32, dt: f32) -> f32 {
+//position, target, step
+fn constant_speed_interpolation(p: f32, t: f32, z: f32) -> f32 {
 	let o = t - p;
-	let z = dt*s;
-
-	let mut u = 0.0;
-	if o > 0.0 {
-		u = 1.0;
-	}
-	else {
-		u = -1.0;
-	}
 
 	if z*z < o*o {
-		return p + z*u;
+		return p + z.copysign(o);
 	}
 
 	return t;
@@ -51,7 +43,6 @@ fn main() {
 	std::fs::read_to_string(&brightness_path_string) // I don't really get why I need the address here
 	.unwrap()
 	.trim_end()
-	.to_string()
 	.parse::<f32>()
 	.unwrap();
 
@@ -59,7 +50,6 @@ fn main() {
 	std::fs::read_to_string(max_brightness_path_string) // Do I need to use the address here?
 	.unwrap()
 	.trim_end()
-	.to_string()
 	.parse::<f32>()
 	.unwrap();
 
@@ -72,6 +62,8 @@ fn main() {
 	println!("{} -> {}", scale_pos, scale_tar);
 	println!("Round target {}", step_tar);
 
+	let speed = 0.1;
+
 	let dt = 0.01; // Pretty much equivalent to dt because there's like zero overhead in the loop
 	let loop_duration = std::time::Duration::from_millis((1000.0*dt) as u64);
 
@@ -81,7 +73,7 @@ fn main() {
 
 	loop {
 		//scale_pos += dt*(scale_tar - scale_pos);
-		scale_pos = constant_speed_interpolation(scale_pos, scale_tar, 0.1, dt);
+		scale_pos = constant_speed_interpolation(scale_pos, scale_tar, speed*dt);
 		println!("{}", scale_pos);
 
 		let step_pos = (max_brightness*scale_pos).round();
