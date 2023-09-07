@@ -1,7 +1,6 @@
-fn constant_speed_interpolation(p: f32, t: f32, s: f32, dt: f32) -> f32 {
+//position, target, step
+fn constant_speed_interpolation(p: f32, t: f32, z: f32) -> f32 {
 	let o = t - p;
-	let z = dt*s;
-
 
 	if z*z < o*o {
 		return p + z.copysign(o);
@@ -74,7 +73,7 @@ fn main() {
 
 	loop {
 		//scale_pos += dt*(scale_tar - scale_pos);
-		scale_pos = constant_speed_interpolation(scale_pos, scale_tar, speed, dt);
+		scale_pos = constant_speed_interpolation(scale_pos, scale_tar, speed*dt);
 		println!("{}", scale_pos);
 
 		let step_pos = (max_brightness*scale_pos).round();
